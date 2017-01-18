@@ -119,9 +119,11 @@ function scopeSelector (selector) {
 }
 
 function cacheTemplate (templateHTML) {
-  let template = document.createElement('template')
-  template.innerHTML = templateHTML
-  return template.content
+  if (templateHTML) {
+    const template = document.createElement('template')
+    template.innerHTML = templateHTML
+    return template.content  
+  }
 }
 
 function validateAndCloneConfig (rawConfig) {
