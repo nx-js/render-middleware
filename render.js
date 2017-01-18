@@ -13,19 +13,24 @@ module.exports = function renderFactory (config) {
     if (elem.nodeType !== 1) {
       throw new Error('render only works with element nodes')
     }
-    addContext(elem)
-
-    const template = document.importNode(config.template, true)
 
     // fall back to non shadow mode (scoped style) for now, add polyfill later
     if (config.shadow && elem.attachShadow) {
       const shadowRoot = elem.attachShadow({mode: 'open'})
-      shadowRoot.appendChild(template)
-      const style = document.createElement('style')
-      style.appendChild(document.createTextNode(config.style))
-      shadowRoot.appendChild(style)
+      if (config.template) {
+        shadowRoot.appendChild(template)
+      }
+      if (config.style) {
+        const style = document.createElement('style')
+        style.appendChild(document.createTextNode(config.style))
+        shadowRoot.appendChild(style)
+      }
     } else {
-      composeContentWithTemplate(elem, template)
+      if (config.template) {
+        const template = document.importNode(config.template, true)
+        addContext(elem)
+        composeContentWithTemplate(elem, template)
+      }
       if (config.style) {
         addScopedStyle(elem, config.style)
         config.style = undefined
@@ -128,8 +133,8 @@ function validateAndCloneConfig (rawConfig) {
 
   if (typeof rawConfig.template === 'string') {
     resultConfig.template = rawConfig.template
-  } else {
-    throw new TypeError('template config must be a string')
+  } else if (rawConfig.template !== undefined) {
+    throw new TypeError('template config must be a string or undefined')
   }
 
   if (typeof rawConfig.style === 'string') {
