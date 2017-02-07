@@ -5,9 +5,7 @@ The `render` middleware factory allows you to modularize your components into se
 - name: render
 - direct middleware dependencies: none
 - all middleware dependencies: none
-- processes: element nodes
-- throws on: text nodes
-- use as: component middleware
+- type: component middleware
 - [docs](http://nx-framework.com/docs/middlewares/render)
 
 ## Installation

@@ -38,6 +38,7 @@ module.exports = function renderFactory (config) {
     }
   }
   render.$name = 'render'
+  render.$type = 'component'
   return render
 }
 
@@ -122,7 +123,7 @@ function cacheTemplate (templateHTML) {
   if (templateHTML) {
     const template = document.createElement('template')
     template.innerHTML = templateHTML
-    return template.content  
+    return template.content
   }
 }
 
