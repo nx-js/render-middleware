@@ -10,10 +10,6 @@ module.exports = function renderFactory (config) {
   config.template = cacheTemplate(config.template)
 
   function render (elem) {
-    if (elem.nodeType !== 1) {
-      throw new Error('render only works with element nodes')
-    }
-
     // fall back to non shadow mode (scoped style) for now, add polyfill later
     if (config.shadow && elem.attachShadow) {
       const shadowRoot = elem.attachShadow({mode: 'open'})
