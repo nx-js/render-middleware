@@ -15,7 +15,7 @@ module.exports = function renderFactory (config) {
       const shadowRoot = elem.attachShadow({mode: 'open'})
       if (config.template) {
         const template = document.importNode(config.template, true)
-        shadowRoot.appendChild(config.template)
+        shadowRoot.appendChild(template)
       }
       if (config.style) {
         const style = document.createElement('style')
